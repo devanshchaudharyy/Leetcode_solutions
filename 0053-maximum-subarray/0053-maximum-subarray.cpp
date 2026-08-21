@@ -1,14 +1,19 @@
+#include <vector>
+#include <algorithm>
+
 class Solution {
 public:
-    int maxSubArray(vector<int>& nums) {
-        int cursum = 0 , maxsum = INT_MIN;
-        for(int val:nums){
-            cursum += val;
-            maxsum = max(cursum , maxsum);
-            if(cursum<0){
-                cursum = 0;
-            }
+    int maxSubArray(std::vector<int>& nums) {
+        int currentSum = nums[0];
+        int maxSum = nums[0];
+
+        for (size_t i = 1; i < nums.size(); i++) {
+            // Either extend the previous subarray or start new from nums[i]
+            currentSum = std::max(nums[i], currentSum + nums[i]);
+            // Track the maximum sum seen so far
+            maxSum = std::max(maxSum, currentSum);
         }
-        return maxsum;
+
+        return maxSum;
     }
 };
